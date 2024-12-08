@@ -1,0 +1,27 @@
+<div class="dialog">
+  <div class="dialog-content">
+    <h2>Task</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="submitForm()">
+      <div>
+        <label>Add Task</label>
+        <input type="text" formControlName="task" appForbiddenWordValidator="forbidden"/>
+        <div *ngIf="taskForm.get('task')?.invalid && taskForm.get('task')?.invalid">
+          <div class ="validation" *ngIf="taskForm.get('task')?.hasError('required')">
+            Task required!
+          </div>
+          <div class = "validation" *ngIf="taskForm.get('task')?.hasError('minlength')">
+            Task min length 5 letters!
+          </div>
+          <div class="validation" *ngIf="taskForm.get('task')?.hasError('maxlength')">
+            Task max length 40 letters!
+          </div>
+          <div class="validation" *ngIf="taskForm.get('task')?.hasError('forbiddenWord')">
+            Task cannot contain forbidden word!
+          </div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="taskForm.invalid">Save</button>
+      <button type="button" (click)="closeDialog()">Close</button>
+    </form>
+  </div>
+</div>

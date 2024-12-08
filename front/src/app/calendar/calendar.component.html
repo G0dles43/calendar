@@ -1,0 +1,31 @@
+<div class="calendar">
+  <div class="calendar-header">
+    <button (click)="previousMonth()">Previous</button>
+    <span>{{ firstDayOfMonth.toFormat('MMMM yyyy') }}</span>
+    <button (click)="nextMonth()">Next</button>
+  </div>
+
+  <div class="calendar-body">
+    <div class="days-of-week">
+      <div id="weeks" *ngFor="let day of weekDays">{{ day }}</div>
+    </div>
+    <div class="days-of-month">
+      <div id="days"
+           *ngFor="let day of daysOfMonth"
+           [class.selected]="selectedDate?.hasSame(day, 'day')"
+           [class.today]="day.hasSame(today,'day')"
+           (click)="selectDay(day)"
+            [ngClass]="{'other-month': !currentMonth(day)}">
+        {{ day.day }}
+        <div id="tasks-day" *ngIf="hasTasks(day)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task list -->
+  <div class="task-list">
+    <app-task-list [tasks]="tasks" [selectedDate]="selectedDate"
+                   (taskAdded)="addTask($event)">
+    </app-task-list>
+  </div>
+</div>
