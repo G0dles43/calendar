@@ -99,10 +99,8 @@
   border-radius: 0 0 8px 8px;
 }
 #tasks-day{
-  display: flex;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: 47px;
   width: 9px;
   height: 9px;
   background-color: #56e310;
