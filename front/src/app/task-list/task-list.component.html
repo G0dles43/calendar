@@ -9,7 +9,7 @@
   <ul>
     <li *ngFor="let task of filteredTasks; let i = index">
       {{ task.title }}
-      <button id="edit-btn" (click)="openEditDialog(task)">Edytuj</button>
+      <button id="edit-btn" (click)="openEditDialog(task)">Edit</button>
       <button id="delete-btn" (click)="removeTask(task.id)">Delete</button>
     </li>
   </ul>
