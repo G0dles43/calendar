@@ -76,7 +76,10 @@
   color: white;
 }
 #days.other-month{
-  background-color: #bfbfbf;
+  background-color: #a8a8a8;
+}
+#days.other-month:hover{
+  background-color: #b8b8b8;
 }
 #days.today{
   background-color: #ea7d2d;
