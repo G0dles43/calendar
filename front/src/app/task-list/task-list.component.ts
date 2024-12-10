@@ -42,7 +42,8 @@ export class TaskListComponent {
     }
   }
 
-  openEditDialog(task: { id: number; title: string; date: string }) {
+  // Otwarcie formularza do edycji zadania
+  openEditDialog(task: { id: number; title: string; }) {
     const dialogRef = this.dialog.open(TaskEditComponent, {
       data: { task },
     });
@@ -50,7 +51,6 @@ export class TaskListComponent {
     dialogRef.afterClosed().subscribe((updatedTask) => {
       if (updatedTask) {
         this.taskService.updateTask(updatedTask.id, updatedTask).subscribe(() => {
-          // Aktualizujemy zadanie w lokalnej liście
           const index = this.tasks.findIndex(t => t.id === updatedTask.id);
           if (index > -1) {
             this.tasks[index] = updatedTask;
@@ -59,7 +59,6 @@ export class TaskListComponent {
       }
     });
   }
-
 
   // Usuwanie zadania
   removeTask(taskId: number | undefined) {

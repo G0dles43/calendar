@@ -1,14 +1,25 @@
-<h2>Edytuj Zadanie</h2>
-<form [formGroup]="taskForm" (ngSubmit)="submitForm()">
-  <label for="title">Tytuł</label>
-  <input id="title" formControlName="title" type="text" />
-  <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
-    Tytuł jest wymagany i musi mieć co najmniej 3 znaki.
+<div class="edit-dialog">
+  <div class="edit-dialog-content">
+    <h2>Edit Task</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="submitForm()">
+      <div>
+        <label>Edit name</label>
+        <input formControlName="title" type="text" appForbiddenWordValidator="forbidden" />
+        <div class ="validation" *ngIf="taskForm.get('title')?.hasError('required')">
+          Task required!
+        </div>
+        <div class = "validation" *ngIf="taskForm.get('title')?.hasError('minlength')">
+          Task min length 5 letters!
+        </div>
+        <div class="validation" *ngIf="taskForm.get('title')?.hasError('maxlength')">
+          Task max length 40 letters!
+        </div>
+        <div class="validation" *ngIf="taskForm.get('title')?.hasError('forbiddenWord')">
+          Task cannot contain forbidden word!
+        </div>
+      </div>
+    <button type="submit" [disabled]="taskForm.invalid">Save</button>
+    <button type="button" (click)="close()">Close</button>
+    </form>
   </div>
-
-  <label for="date">Data</label>
-  <input id="date" formControlName="date" type="date" />
-
-  <button type="submit" [disabled]="taskForm.invalid">Zapisz</button>
-  <button type="button" (click)="close()">Anuluj</button>
-</form>
+</div>

@@ -1,18 +1,19 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject, OnChanges, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ForbiddenWordValidatorDirective} from '../task-form/forbidden-word-validator.directive';
 
 
 @Component({
   selector: 'app-task-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, FormsModule, ReactiveFormsModule, ForbiddenWordValidatorDirective],
   templateUrl: './task-edit.component.html',
   styleUrl: './task-edit.component.css'
 })
-export class TaskEditComponent {
+export class TaskEditComponent implements OnChanges{
   taskForm: FormGroup;
 
   constructor(
@@ -20,8 +21,15 @@ export class TaskEditComponent {
     @Inject(MAT_DIALOG_DATA) public data: { task: { id: number; title: string; } }
   ) {
     this.taskForm = new FormGroup({
-      title: new FormControl(data.task.title, [Validators.required, Validators.minLength(3)]),
-    });
+      title: new FormControl(data.task.title, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),});
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && this.data && this.data.task) {
+      this.taskForm.patchValue({
+        title: this.data.task.title
+      });
+    }
   }
 
   submitForm() {
@@ -30,7 +38,7 @@ export class TaskEditComponent {
         ...this.data.task,
         title: this.taskForm.value.title
       };
-      this.dialogRef.close(updatedTask); // Zwracamy zaktualizowany task
+      this.dialogRef.close(updatedTask);
     }
   }
 
