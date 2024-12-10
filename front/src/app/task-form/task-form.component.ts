@@ -13,7 +13,7 @@ import { ForbiddenWordValidatorDirective } from './forbidden-word-validator.dire
   imports: [CommonModule, FormsModule, ReactiveFormsModule, ForbiddenWordValidatorDirective]
 })
 export class TaskFormComponent implements OnInit{
-  selectedDate: Date; // Typ Date
+  selectedDate: Date;
   taskForm: FormGroup = new FormGroup({
     task: new FormControl('', Validators.required),
     priority: new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),

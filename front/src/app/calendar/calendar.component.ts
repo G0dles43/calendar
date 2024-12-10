@@ -75,6 +75,7 @@ export class CalendarComponent implements OnInit {
     return this.tasks.some(task => task.date.hasSame(day, 'day'));
   }
 
+  //Calendar buttons
   previousMonth() {
     this.firstDayOfMonth = this.firstDayOfMonth.minus({ months: 1 });
     this.generateDaysOfMonth();
