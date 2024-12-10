@@ -7,6 +7,7 @@ interface Task {
   id?: number;
   title: string;
   date: DateTime;
+  priority: number;
 }
 
 @Injectable({

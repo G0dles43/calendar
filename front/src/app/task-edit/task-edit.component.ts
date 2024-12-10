@@ -18,16 +18,18 @@ export class TaskEditComponent implements OnChanges{
 
   constructor(
     public dialogRef: MatDialogRef<TaskEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { task: { id: number; title: string; } }
+    @Inject(MAT_DIALOG_DATA) public data: { task: { id: number; title: string; priority: number; } }
   ) {
     this.taskForm = new FormGroup({
-      title: new FormControl(data.task.title, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),});
+      title: new FormControl(data.task.title, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+      priority: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)]),});
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && this.data && this.data.task) {
       this.taskForm.patchValue({
-        title: this.data.task.title
+        title: this.data.task.title,
+        priority: this.data.task.priority,
       });
     }
   }
@@ -36,7 +38,8 @@ export class TaskEditComponent implements OnChanges{
     if (this.taskForm.valid) {
       const updatedTask = {
         ...this.data.task,
-        title: this.taskForm.value.title
+        title: this.taskForm.value.title,
+        priority: this.taskForm.value.priority,
       };
       this.dialogRef.close(updatedTask);
     }

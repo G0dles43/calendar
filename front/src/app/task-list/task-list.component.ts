@@ -14,9 +14,9 @@ import {TaskEditComponent} from '../task-edit/task-edit.component';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent {
-  @Input() tasks: { id: number, date: string, title: string }[] = [];
+  @Input() tasks: { id: number, date: string, title: string, priority: number }[] = [];
   @Input() selectedDate: DateTime | null = null;
-  @Output() taskAdded = new EventEmitter<{ date: DateTime, task: string }>();
+  @Output() taskAdded = new EventEmitter<{ date: DateTime, task: string, priority: number }>();
 
   // Filtrowanie zadań na podstawie wybranego dnia
   get filteredTasks() {
@@ -43,7 +43,7 @@ export class TaskListComponent {
   }
 
   // Otwarcie formularza do edycji zadania
-  openEditDialog(task: { id: number; title: string; }) {
+  openEditDialog(task: { id: number; title: string; priority: number }) {
     const dialogRef = this.dialog.open(TaskEditComponent, {
       data: { task },
     });
@@ -73,7 +73,7 @@ export class TaskListComponent {
   }
 
   sortTasks(ascending: boolean) {
-    const compareFn = (a: { date: string; title: string }, b: { date: string; title: string }) => {
+    const compareFn = (a: { date: string; title: string, priority: number }, b: { date: string; title: string; priority: number; }) => {
       const valueA = a.title.charAt(0).toLowerCase();
       const valueB = b.title.charAt(0).toLowerCase();
       if (valueA < valueB) {
