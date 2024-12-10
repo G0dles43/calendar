@@ -18,6 +18,8 @@ export class TaskListComponent {
   @Input() selectedDate: DateTime | null = null;
   @Output() taskAdded = new EventEmitter<{ date: DateTime, task: string, priority: number }>();
 
+  errorMessage: string | null = null;
+
   // Filtrowanie zadań na podstawie wybranego dnia
   get filteredTasks() {
     return this.tasks.filter(task =>
@@ -29,17 +31,32 @@ export class TaskListComponent {
 
   // Otwarcie formularza do dodania zadania
   openDialog() {
-    if (this.selectedDate) {
-      const dialogRef = this.dialog.open(TaskFormComponent, {
-        data: { selectedDate: this.selectedDate.toJSDate() }
-      });
+    this.errorMessage = null;
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.taskAdded.emit(result);
-        }
-      });
+    if (!this.selectedDate) {
+      this.errorMessage = 'Select date!';
+      alert(this.errorMessage);
+      return;
     }
+
+    const today = DateTime.now().startOf('day');
+    const selectedDate = this.selectedDate.startOf('day');
+
+    if (selectedDate < today) {
+      this.errorMessage = 'You cannot add a task to a past date!';
+      alert(this.errorMessage);
+      return;
+    }
+
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      data: { selectedDate: this.selectedDate.toJSDate() }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskAdded.emit(result);
+      }
+    });
   }
 
   // Otwarcie formularza do edycji zadania
