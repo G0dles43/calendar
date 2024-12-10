@@ -1,0 +1,14 @@
+<h2>Edytuj Zadanie</h2>
+<form [formGroup]="taskForm" (ngSubmit)="submitForm()">
+  <label for="title">Tytuł</label>
+  <input id="title" formControlName="title" type="text" />
+  <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+    Tytuł jest wymagany i musi mieć co najmniej 3 znaki.
+  </div>
+
+  <label for="date">Data</label>
+  <input id="date" formControlName="date" type="date" />
+
+  <button type="submit" [disabled]="taskForm.invalid">Zapisz</button>
+  <button type="button" (click)="close()">Anuluj</button>
+</form>

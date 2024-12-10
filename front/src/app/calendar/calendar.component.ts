@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { TaskService } from '../services/task.service'; // Import serwisu
 import { CommonModule } from '@angular/common';
@@ -11,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
   standalone: true,
-  imports: [CommonModule, TaskFormComponent, TaskListComponent]
+  imports: [CommonModule, TaskListComponent]
 })
 export class CalendarComponent implements OnInit {
   today: DateTime = DateTime.local();
@@ -45,22 +44,6 @@ export class CalendarComponent implements OnInit {
     this.selectedDate = day;
   }
 
-  openDialog() {
-    if (this.selectedDate) {
-      const dialogRef = this.dialog.open(TaskFormComponent, {
-        data: {
-          selectedDate: this.selectedDate.toJSDate()
-        }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.addTask(result);
-        }
-      });
-    }
-  }
-
   loadTasks() {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks.map(task => ({
@@ -70,7 +53,7 @@ export class CalendarComponent implements OnInit {
       }));
     });
   }
-  
+
 
   addTask(task: { date: DateTime; task: string }) {
     const newTask = {

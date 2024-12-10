@@ -1,14 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { DateTime } from 'luxon';
 import { TaskService } from '../services/task.service';
+import {TaskEditComponent} from '../task-edit/task-edit.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskEditComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
@@ -40,6 +41,25 @@ export class TaskListComponent {
       });
     }
   }
+
+  openEditDialog(task: { id: number; title: string; date: string }) {
+    const dialogRef = this.dialog.open(TaskEditComponent, {
+      data: { task },
+    });
+
+    dialogRef.afterClosed().subscribe((updatedTask) => {
+      if (updatedTask) {
+        this.taskService.updateTask(updatedTask.id, updatedTask).subscribe(() => {
+          // Aktualizujemy zadanie w lokalnej liście
+          const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+          if (index > -1) {
+            this.tasks[index] = updatedTask;
+          }
+        });
+      }
+    });
+  }
+
 
   // Usuwanie zadania
   removeTask(taskId: number | undefined) {
