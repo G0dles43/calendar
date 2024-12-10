@@ -2,8 +2,8 @@
   <h3>Tasks for {{ selectedDate?.toFormat('dd MMMM yyyy') }}</h3>
 
   <div class="task-controls">
-    <button (click)="sortTasks(true)">Sort by First Letter (Asc)</button>
-    <button (click)="sortTasks(false)">Sort by First Letter (Desc)</button>
+    <button class="sort" (click)="sortTasks(true)">Sort by First Letter (Asc)</button>
+    <button class="sort" (click)="sortTasks(false)">Sort by First Letter (Desc)</button>
   </div>
 
   <ul>

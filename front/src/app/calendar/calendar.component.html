@@ -1,8 +1,14 @@
 <div class="calendar">
   <div class="calendar-header">
-    <button (click)="previousMonth()">Previous</button>
+    <div id="previous-btns">
+      <button (click)="previousYear()">Previous Year</button>
+      <button (click)="previousMonth()">Previous Month</button>
+    </div>
     <span>{{ firstDayOfMonth.toFormat('MMMM yyyy') }}</span>
-    <button (click)="nextMonth()">Next</button>
+    <div id="next-btns">
+      <button (click)="nextMonth()">Next Month</button>
+      <button (click)="nextYear()">Next Year</button>
+    </div>
   </div>
 
   <div class="calendar-body">

@@ -3,7 +3,8 @@ import {NG_VALIDATORS, AbstractControl, ValidationErrors, Validator} from '@angu
 
 @Directive({
   selector: '[appForbiddenWordValidator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: ForbiddenWordValidatorDirective, multi: true}]
+  providers: [{provide: NG_VALIDATORS, useExisting: ForbiddenWordValidatorDirective, multi: true}],
+  standalone:true,
 })
 export class ForbiddenWordValidatorDirective implements Validator {
   @Input('appForbiddenWordValidator') forbiddenWordValidator: string = 'forbidden';

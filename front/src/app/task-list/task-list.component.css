@@ -1,7 +1,7 @@
 li{
   margin-bottom: 10px;
 }
-#add-btn{
+#add-btn, .sort{
   background-color: #1f72d1;
   color: #fdfdfd;
   border-radius: 8px;
@@ -12,9 +12,14 @@ li{
   transition: background-color 0.3s
 }
 
-#add-btn:hover{
+#add-btn:hover, .sort:hover{
   background-color: #005cbf;
 }
+.sort{
+  margin-left: 5px;
+  font-size: 14px;
+}
+
 #edit-btn{
   padding: 5px 10px;
   margin-left: 5px;
@@ -46,3 +51,4 @@ li{
 #delete-btn:hover {
   background-color: #c82333;
 }
+

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
-import { MatDialog } from '@angular/material/dialog';
 import { TaskListComponent } from '../task-list/task-list.component';
-import { TaskService } from '../services/task.service'; // Import serwisu
+import { TaskService } from '../services/task.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,12 +19,12 @@ export class CalendarComponent implements OnInit {
   selectedDate: DateTime | null = null;
   tasks: any[] = [];
 
-  constructor(public dialog: MatDialog, private taskService: TaskService) {
+  constructor(private taskService: TaskService) {
     this.generateDaysOfMonth();
   }
 
   ngOnInit() {
-    this.loadTasks(); // Wczytaj zadania przy inicjalizacji
+    this.loadTasks();
   }
 
   generateDaysOfMonth() {
@@ -83,6 +82,16 @@ export class CalendarComponent implements OnInit {
 
   nextMonth() {
     this.firstDayOfMonth = this.firstDayOfMonth.plus({ months: 1 });
+    this.generateDaysOfMonth();
+  }
+
+  previousYear() {
+    this.firstDayOfMonth = this.firstDayOfMonth.minus({ months: 12 });
+    this.generateDaysOfMonth();
+  }
+
+  nextYear() {
+    this.firstDayOfMonth = this.firstDayOfMonth.plus({ months: 12 });
     this.generateDaysOfMonth();
   }
 
