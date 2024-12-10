@@ -6,10 +6,10 @@
         <label>Add Task</label>
         <input type="text" formControlName="task" appForbiddenWordValidator="forbidden"/>
         <div *ngIf="taskForm.get('task')?.invalid && taskForm.get('task')?.invalid">
-          <div class ="validation" *ngIf="taskForm.get('task')?.hasError('required')">
+          <div class="validation" *ngIf="taskForm.get('task')?.hasError('required')">
             Task required!
           </div>
-          <div class = "validation" *ngIf="taskForm.get('task')?.hasError('minlength')">
+          <div class="validation" *ngIf="taskForm.get('task')?.hasError('minlength')">
             Task min length 5 letters!
           </div>
           <div class="validation" *ngIf="taskForm.get('task')?.hasError('maxlength')">
@@ -17,6 +17,21 @@
           </div>
           <div class="validation" *ngIf="taskForm.get('task')?.hasError('forbiddenWord')">
             Task cannot contain forbidden word!
+          </div>
+        </div>
+      </div>
+      <div>
+        <label>Priority 1-5</label>
+        <input type="number" formControlName="priority">
+        <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.invalid">
+          <div class="validation" *ngIf="taskForm.get('priority')?.hasError('required')">
+            Priority required!
+          </div>
+          <div class="validation" *ngIf="taskForm.get('priority')?.hasError('min')">
+            Priority between 1-5
+          </div>
+          <div class="validation" *ngIf="taskForm.get('priority')?.hasError('max')">
+            Priority between 1-5
           </div>
         </div>
       </div>

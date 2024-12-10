@@ -16,6 +16,7 @@ export class TaskFormComponent implements OnInit{
   selectedDate: Date; // Typ Date
   taskForm: FormGroup = new FormGroup({
     task: new FormControl('', Validators.required),
+    priority: new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
   });
 
   constructor(
@@ -31,12 +32,14 @@ export class TaskFormComponent implements OnInit{
 
   ngOnInit() {
     this.taskForm = new FormGroup({
-      task: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),})
+      task: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+      priority: new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
+    });
   }
 
   submitForm() {
     if(this.taskForm.valid) {
-      this.dialogRef.close({date: this.selectedDate, task: this.taskForm.value.task});
+      this.dialogRef.close({date: this.selectedDate, task: this.taskForm.value.task, priority: this.taskForm.value.priority});
     }
   }
 
