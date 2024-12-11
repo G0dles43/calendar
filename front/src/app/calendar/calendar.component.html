@@ -28,10 +28,7 @@
     </div>
   </div>
 
-  <!-- Task list -->
   <div class="task-list">
-    <app-task-list [tasks]="tasks" [selectedDate]="selectedDate"
-                   (taskAdded)="addTask($event)">
-    </app-task-list>
+    <app-task-list [tasks]="tasks" [selectedDate]="selectedDate" (taskAdded)="addTask($event)"></app-task-list>
   </div>
 </div>

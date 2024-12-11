@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DateTime} from 'luxon';
 import { ForbiddenWordValidatorDirective } from './forbidden-word-validator.directive';
 
 @Component({

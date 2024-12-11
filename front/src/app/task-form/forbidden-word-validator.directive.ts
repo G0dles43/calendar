@@ -15,6 +15,5 @@ export class ForbiddenWordValidatorDirective implements Validator {
     }
     return null;
   }
-  constructor() { }
 
 }

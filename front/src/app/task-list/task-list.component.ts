@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { DateTime } from 'luxon';
 import { TaskService } from '../services/task.service';
@@ -23,7 +23,7 @@ export class TaskListComponent {
   // Filtrowanie zadań na podstawie wybranego dnia
   get filteredTasks() {
     return this.tasks.filter(task =>
-      new Date(task.date).toDateString() === new Date(this.selectedDate?.toJSDate() || '').toDateString()
+      DateTime.fromISO(task.date).toFormat('yyyy-MM-dd') === this.selectedDate?.toFormat('yyyy-MM-dd')
     );
   }
 
