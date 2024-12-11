@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DateTime } from 'luxon';
-
-interface Task {
-  id?: number;
-  title: string;
-  date: DateTime;
-  priority: number;
-}
+import {Task} from '../models/task.module'
 
 @Injectable({
   providedIn: 'root'
