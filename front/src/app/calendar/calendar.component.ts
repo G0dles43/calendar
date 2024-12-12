@@ -48,7 +48,7 @@ export class CalendarComponent implements OnInit {
       this.tasks = tasks.map(task => ({
         id: task.id,
         title: task.title,
-        date: DateTime.fromISO(task.date.toString()),
+        date: task.date,
         priority: task.priority,
       }));
     });
@@ -65,7 +65,7 @@ export class CalendarComponent implements OnInit {
       this.tasks.push({
         id: addedTask.id,
         title: addedTask.title,
-        date: DateTime.fromISO(addedTask.date.toString()),
+        date: addedTask.date,
         priority: addedTask.priority,
       });
     });
