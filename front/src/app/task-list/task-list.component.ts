@@ -90,7 +90,7 @@ export class TaskListComponent {
   }
 
   sortTasks(ascending: boolean) {
-    const compareFn = (a: { date: string; title: string, priority: number }, b: { date: string; title: string; priority: number; }) => {
+    const compareFn = (a: { title: string }, b: { title: string;}) => {
       const valueA = a.title.charAt(0).toLowerCase();
       const valueB = b.title.charAt(0).toLowerCase();
       if (valueA < valueB) {
