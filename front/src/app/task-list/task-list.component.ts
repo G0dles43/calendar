@@ -20,6 +20,7 @@ export class TaskListComponent {
 
   errorMessage: string | null = null;
 
+  // Filtrowanie zadań na podstawie wybranego dnia
   get filteredTasks() {
     return this.tasks.filter(task =>
       DateTime.fromISO(task.date).toFormat('yyyy-MM-dd') === this.selectedDate?.toFormat('yyyy-MM-dd')
@@ -28,6 +29,7 @@ export class TaskListComponent {
 
   constructor(public dialog: MatDialog, private taskService: TaskService) {}
 
+  // Otwarcie formularza do dodania zadania
   openDialog() {
     this.errorMessage = null;
 
@@ -57,6 +59,7 @@ export class TaskListComponent {
     });
   }
 
+  // Otwarcie formularza do edycji zadania
   openEditDialog(task: { id: number; title: string; priority: number }) {
     const dialogRef = this.dialog.open(TaskEditComponent, {
       data: { task },
@@ -74,9 +77,11 @@ export class TaskListComponent {
     });
   }
 
+  // Usuwanie zadania
   removeTask(taskId: number | undefined) {
     if (taskId != null) {
       this.taskService.deleteTask(taskId).subscribe(() => {
+        // Po usunięciu z API usuwamy zadanie z listy w interfejsie
         this.tasks = this.tasks.filter(task => task.id !== taskId);
       });
     } else {
@@ -85,7 +90,7 @@ export class TaskListComponent {
   }
 
   sortTasks(ascending: boolean) {
-    const compareFn = (a: { title: string }, b: { title: string; }) => {
+    const compareFn = (a: { title: string }, b: { title: string;}) => {
       const valueA = a.title.charAt(0).toLowerCase();
       const valueB = b.title.charAt(0).toLowerCase();
       if (valueA < valueB) {
