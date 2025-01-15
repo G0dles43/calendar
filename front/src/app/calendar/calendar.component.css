@@ -85,7 +85,12 @@
 #days.today{
   background-color: #ea7d2d;
   animation: days_today_animation 5s infinite;
-
+}
+#days.saturday{
+  color: #d3d3d3;
+}
+#days.sunday{
+  color: #e30202;
 }
 
 
