@@ -16,15 +16,22 @@ export class CalendarComponent implements OnInit {
   firstDayOfMonth: DateTime = this.today.startOf('month');
   weekDays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   daysOfMonth: DateTime[] = [];
+  monthsOfYear: DateTime[] = [];
   selectedDate: DateTime | null = null;
   tasks: any[] = [];
+  currentView: 'month' | 'year' = "month";
 
   constructor(private taskService: TaskService) {
     this.generateDaysOfMonth();
+    this.generateMonthsOfYear();
   }
 
   ngOnInit() {
     this.loadTasks();
+  }
+
+  setView(view: 'month' | 'year') {
+    this.currentView = view;
   }
 
   generateDaysOfMonth() {
@@ -37,6 +44,19 @@ export class CalendarComponent implements OnInit {
       this.daysOfMonth.push(current);
       current = current.plus({ days: 1 });
     }
+  }
+
+  generateMonthsOfYear() {
+    this.monthsOfYear = [];
+    for (let i = 0; i < 12; i++) {
+      this.monthsOfYear.push(this.today.startOf('year').plus({ months: i }));
+    }
+  }
+
+  selectMonth(month: DateTime) {
+    this.firstDayOfMonth = month.startOf('month');
+    this.currentView = 'month';
+    this.generateDaysOfMonth();
   }
 
   selectDay(day: DateTime) {

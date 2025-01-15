@@ -11,7 +11,13 @@
     </div>
   </div>
 
+  <div class="view-toggle">
+    <button (click)="setView('month')">Month</button>
+    <button (click)="setView('year')">Year</button>
+  </div>
+
   <div class="calendar-body">
+    <div *ngIf="currentView === 'month'">
     <div class="days-of-week">
       <div id="weeks" *ngFor="let day of weekDays">{{ day }}</div>
     </div>
@@ -29,6 +35,17 @@
         <div id="tasks-day" *ngIf="hasTasks(day)"></div>
       </div>
     </div>
+  </div>
+
+    <div *ngIf="currentView === 'year'">
+      <div class="months-of-year">
+        <div class="month"
+                    *ngFor="let month of monthsOfYear"
+                    (click)="selectMonth(month)">
+          {{month.toFormat('MMMM')}}
+          </div>
+      </div>
+      </div>
   </div>
 
   <div class="task-list">
