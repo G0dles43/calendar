@@ -29,6 +29,7 @@ export class TaskListComponent {
     priority: number;
     category: 'entertainment' | 'regular' | 'mandatory';
   }>();
+  @Output() taskRemoved = new EventEmitter<number>();
 
   errorMessage: string | null = null;
 
@@ -98,13 +99,18 @@ export class TaskListComponent {
     });
   }
 
-  // Usuwanie zadania
   removeTask(taskId: number | undefined) {
     if (taskId != null) {
-      this.taskService.deleteTask(taskId).subscribe(() => {
-        // Po usunięciu z API usuwamy zadanie z listy w interfejsie
-        this.tasks = this.tasks.filter((task) => task.id !== taskId);
-      });
+      this.taskService.deleteTask(taskId).subscribe(
+        () => {
+          // Usuń zadanie z lokalnej listy bez przeładowania strony
+          this.tasks = this.tasks.filter((task) => task.id !== taskId);
+          this.taskRemoved.emit(taskId);
+        },
+        (error) => {
+          console.error('Wystąpił błąd podczas usuwania zadania:', error);
+        }
+      );
     } else {
       console.error('Nie można usunąć zadania bez ID');
     }

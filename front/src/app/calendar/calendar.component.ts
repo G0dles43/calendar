@@ -43,8 +43,9 @@ export class CalendarComponent implements OnInit {
   }
 
   hasCategoryForDay(day: DateTime, category: string): boolean {
-    const tasks = this.getTasksForDay(day);
-    return tasks.some((task) => task.category === category);
+    return this.tasks.some(
+      (task) => task.date.hasSame(day, 'day') && task.category === category
+    );
   }
 
   setView(view: 'month' | 'year') {
@@ -142,5 +143,8 @@ export class CalendarComponent implements OnInit {
 
   currentMonth(date: DateTime): boolean {
     return date.hasSame(this.firstDayOfMonth, 'month');
+  }
+  onTaskRemoved(taskId: number) {
+    this.tasks = this.tasks.filter((task) => task.id !== taskId);
   }
 }

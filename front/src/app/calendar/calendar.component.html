@@ -71,6 +71,7 @@
       [tasks]="tasks"
       [selectedDate]="selectedDate"
       (taskAdded)="addTask($event)"
+      (taskRemoved)="onTaskRemoved($event)"
     ></app-task-list>
   </div>
 </div>
