@@ -181,3 +181,64 @@
 .red-task {
   color: red;
 }
+
+.year-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.month {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.month-header {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mini-calendar .days-of-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.mini-calendar .days-of-month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.mini-calendar .day {
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  background-color: #eaeaea;
+  border-radius: 4px;
+}
+
+.mini-calendar .day.today {
+  background-color: #ea7d2d;
+  color: white;
+  font-weight: bold;
+}
+
+.mini-calendar .day.other-month {
+  color: #ccc;
+}
+

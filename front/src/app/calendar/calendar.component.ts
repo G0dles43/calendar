@@ -52,6 +52,21 @@ export class CalendarComponent implements OnInit {
     this.currentView = view;
   }
 
+  generateDaysForMonth(month: DateTime): DateTime[] {
+    const days = [];
+    const start = month.startOf('month').startOf('week');
+    const end = month.endOf('month').endOf('week');
+    let current = start;
+
+    while (current <= end) {
+      days.push(current);
+      current = current.plus({ days: 1 });
+    }
+
+    return days;
+  }
+
+
   generateDaysOfMonth() {
     this.daysOfMonth = [];
     let start = this.firstDayOfMonth.startOf('week');

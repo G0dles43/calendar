@@ -53,14 +53,27 @@
       </div>
     </div>
 
-    <div *ngIf="currentView === 'year'">
-      <div class="months-of-year">
-        <div
-          class="month"
-          *ngFor="let month of monthsOfYear"
-          (click)="selectMonth(month)"
-        >
-          {{ month.toFormat("MMMM") }}
+    <div *ngIf="currentView === 'year'" class="year-view">
+      <div class="month-grid">
+        <div class="month" *ngFor="let month of monthsOfYear">
+          <div class="month-header">
+            {{ month.toFormat('MMMM yyyy') }}
+          </div>
+          <div class="mini-calendar">
+            <div class="days-of-week">
+              <div *ngFor="let day of weekDays">{{ day.slice(0, 2) }}</div>
+            </div>
+            <div class="days-of-month">
+              <div
+                *ngFor="let day of generateDaysForMonth(month)"
+                class="day"
+                [class.other-month]="!day.hasSame(month, 'month')"
+                [class.today]="day.hasSame(today, 'day')"
+                (click)="selectMonth(month)">
+                {{ day.day }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
