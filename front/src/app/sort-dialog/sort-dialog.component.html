@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Sort Tasks</h2>
+<div mat-dialog-content>
+  <p>Select a sort option:</p>
+  <div class="sort-options">
+    <button mat-button (click)="sort('title', true)">Sort by Name (Asc)</button>
+    <button mat-button (click)="sort('title', false)">
+      Sort by Name (Desc)
+    </button>
+  </div>
+  <div class="sort-options">
+    <button mat-button (click)="sort('priority', true)">
+      Sort by Priority (Asc)
+    </button>
+    <button mat-button (click)="sort('priority', false)">
+      Sort by Priority (Desc)
+    </button>
+  </div>
+  <div class="sort-options">
+    <button mat-button (click)="sort('category', true)">
+      Sort by Category (Asc)
+    </button>
+    <button mat-button (click)="sort('category', false)">
+      Sort by Category (Desc)
+    </button>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button id="sumbitButton" (click)="closeDialog()">Close</button>
+</div>
