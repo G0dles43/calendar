@@ -1,29 +1,43 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { DateTime } from 'luxon';
 import { TaskService } from '../services/task.service';
-import {TaskEditComponent} from '../task-edit/task-edit.component';
+import { TaskEditComponent } from '../task-edit/task-edit.component';
+import { SortDialogComponent } from '../sort-dialog/sort-dialog.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, TaskEditComponent],
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent {
-  @Input() tasks: { id: number, date: string, title: string, priority: number }[] = [];
+  @Input() tasks: {
+    id: number;
+    date: string;
+    title: string;
+    priority: number;
+    category: 'entertainment' | 'regular' | 'mandatory';
+  }[] = [];
   @Input() selectedDate: DateTime | null = null;
-  @Output() taskAdded = new EventEmitter<{ date: DateTime, task: string, priority: number }>();
+  @Output() taskAdded = new EventEmitter<{
+    date: DateTime;
+    task: string;
+    priority: number;
+    category: 'entertainment' | 'regular' | 'mandatory';
+  }>();
 
   errorMessage: string | null = null;
 
   // Filtrowanie zadań na podstawie wybranego dnia
   get filteredTasks() {
-    return this.tasks.filter(task =>
-      DateTime.fromISO(task.date).toFormat('yyyy-MM-dd') === this.selectedDate?.toFormat('yyyy-MM-dd')
+    return this.tasks.filter(
+      (task) =>
+        DateTime.fromISO(task.date).toFormat('yyyy-MM-dd') ===
+        this.selectedDate?.toFormat('yyyy-MM-dd')
     );
   }
 
@@ -49,10 +63,10 @@ export class TaskListComponent {
     }
 
     const dialogRef = this.dialog.open(TaskFormComponent, {
-      data: { selectedDate: this.selectedDate.toJSDate() }
+      data: { selectedDate: this.selectedDate.toJSDate() },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.taskAdded.emit(result);
       }
@@ -60,19 +74,26 @@ export class TaskListComponent {
   }
 
   // Otwarcie formularza do edycji zadania
-  openEditDialog(task: { id: number; title: string; priority: number }) {
+  openEditDialog(task: {
+    id: number;
+    title: string;
+    priority: number;
+    category: 'entertainment' | 'regular' | 'mandatory';
+  }) {
     const dialogRef = this.dialog.open(TaskEditComponent, {
       data: { task },
     });
 
     dialogRef.afterClosed().subscribe((updatedTask) => {
       if (updatedTask) {
-        this.taskService.updateTask(updatedTask.id, updatedTask).subscribe(() => {
-          const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-          if (index > -1) {
-            this.tasks[index] = updatedTask;
-          }
-        });
+        this.taskService
+          .updateTask(updatedTask.id, updatedTask)
+          .subscribe(() => {
+            const index = this.tasks.findIndex((t) => t.id === updatedTask.id);
+            if (index > -1) {
+              this.tasks[index] = updatedTask;
+            }
+          });
       }
     });
   }
@@ -82,17 +103,28 @@ export class TaskListComponent {
     if (taskId != null) {
       this.taskService.deleteTask(taskId).subscribe(() => {
         // Po usunięciu z API usuwamy zadanie z listy w interfejsie
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
+        this.tasks = this.tasks.filter((task) => task.id !== taskId);
       });
     } else {
       console.error('Nie można usunąć zadania bez ID');
     }
   }
 
-  sortTasks(ascending: boolean) {
-    const compareFn = (a: { title: string }, b: { title: string;}) => {
-      const valueA = a.title.charAt(0).toLowerCase();
-      const valueB = b.title.charAt(0).toLowerCase();
+  openSortDialog() {
+    const dialogRef = this.dialog.open(SortDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.sortTasks(result.property, result.ascending);
+      }
+    });
+  }
+
+  sortTasks(property: string, ascending: boolean) {
+    const compareFn = (a: any, b: any) => {
+      const valueA = a[property];
+      const valueB = b[property];
+
       if (valueA < valueB) {
         return ascending ? -1 : 1;
       }

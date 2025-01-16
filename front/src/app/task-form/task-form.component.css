@@ -39,7 +39,7 @@
   font-size: 14px;
   margin-top: -5px;
   margin-bottom: 10px;
-  color:red;
+  color: red;
 }
 
 .dialog-content button {
@@ -64,4 +64,19 @@
 .dialog-content button[type="button"] {
   background-color: #dc3545;
   color: #fff;
+}
+
+#entertainment {
+  color: rgb(22, 224, 22);
+  font-weight: 700;
+}
+
+#regular {
+  color: orange;
+  font-weight: 700;
+}
+
+#mandatory {
+  color: red;
+  font-weight: 700;
 }

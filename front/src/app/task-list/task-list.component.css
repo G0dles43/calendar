@@ -1,7 +1,8 @@
-li{
+li {
   margin-bottom: 10px;
 }
-#add-btn, .sort{
+#add-btn,
+.sort {
   background-color: #1f72d1;
   color: #fdfdfd;
   border-radius: 8px;
@@ -9,18 +10,19 @@ li{
   border: none;
   font-size: 17px;
   padding: 10px;
-  transition: background-color 0.3s
+  transition: background-color 0.3s;
 }
 
-#add-btn:hover, .sort:hover{
+#add-btn:hover,
+.sort:hover {
   background-color: #005cbf;
 }
-.sort{
+.sort {
   margin-left: 5px;
   font-size: 14px;
 }
 
-#edit-btn{
+#edit-btn {
   padding: 5px 10px;
   margin-left: 5px;
   font-size: 14px;
@@ -29,10 +31,10 @@ li{
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s
+  transition: background-color 0.3s;
 }
 
-#edit-btn:hover{
+#edit-btn:hover {
   background-color: #1e8c1f;
 }
 
@@ -45,10 +47,23 @@ li{
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s
+  transition: background-color 0.3s;
 }
 
 #delete-btn:hover {
   background-color: #c82333;
 }
+.green-task {
+  color: rgb(22, 224, 22);
+  font-weight: bold;
+}
 
+.yellow-task {
+  color: orange;
+  font-weight: bold;
+}
+
+.red-task {
+  color: red;
+  font-weight: bold;
+}

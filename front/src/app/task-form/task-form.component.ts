@@ -1,7 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ForbiddenWordValidatorDirective } from './forbidden-word-validator.directive';
 
 @Component({
@@ -9,13 +15,27 @@ import { ForbiddenWordValidatorDirective } from './forbidden-word-validator.dire
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ForbiddenWordValidatorDirective]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ForbiddenWordValidatorDirective,
+  ],
 })
-export class TaskFormComponent implements OnInit{
+export class TaskFormComponent implements OnInit {
   selectedDate: Date;
   taskForm: FormGroup = new FormGroup({
-    task: new FormControl('', Validators.required),
-    priority: new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
+    task: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(40),
+    ]),
+    priority: new FormControl(3, [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(5),
+    ]),
+    category: new FormControl('regular', [Validators.required]),
   });
 
   constructor(
@@ -31,14 +51,28 @@ export class TaskFormComponent implements OnInit{
 
   ngOnInit() {
     this.taskForm = new FormGroup({
-      task: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
-      priority: new FormControl(3, [Validators.required, Validators.min(1), Validators.max(5)]),
+      task: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(40),
+      ]),
+      priority: new FormControl(3, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5),
+      ]),
+      category: new FormControl('regular', [Validators.required]),
     });
   }
 
   submitForm() {
-    if(this.taskForm.valid) {
-      this.dialogRef.close({date: this.selectedDate, task: this.taskForm.value.task, priority: this.taskForm.value.priority});
+    if (this.taskForm.valid) {
+      this.dialogRef.close({
+        date: this.selectedDate,
+        task: this.taskForm.value.task,
+        priority: this.taskForm.value.priority,
+        category: this.taskForm.value.category,
+      });
     }
   }
 

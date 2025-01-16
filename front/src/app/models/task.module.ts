@@ -1,8 +1,9 @@
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 export interface Task {
   id?: number;
   title: string;
   date: DateTime;
   priority: number;
+  category: 'entertainment' | 'regular' | 'mandatory';
 }

@@ -1,14 +1,22 @@
 <div class="task-list-container">
-  <h3>Tasks for {{ selectedDate?.toFormat('dd MMMM yyyy') }}</h3>
+  <h3>Tasks for {{ selectedDate?.toFormat("dd MMMM yyyy") }}</h3>
 
   <div class="task-controls">
-    <button class="sort" (click)="sortTasks(true)">Sort by First Letter (Asc)</button>
-    <button class="sort" (click)="sortTasks(false)">Sort by First Letter (Desc)</button>
+    <button class="sort" (click)="openSortDialog()">Sort</button>
   </div>
 
   <ul>
     <li *ngFor="let task of filteredTasks; let i = index">
-      {{ task.title }} - Priority: {{task.priority}}
+      {{ task.title }} - Priority: {{ task.priority }} - Category:
+      <span
+        [ngClass]="{
+          'green-task': task.category === 'entertainment',
+          'yellow-task': task.category === 'regular',
+          'red-task': task.category === 'mandatory'
+        }"
+      >
+        {{ task.category }}
+      </span>
       <button id="edit-btn" (click)="openEditDialog(task)">Edit</button>
       <button id="delete-btn" (click)="removeTask(task.id)">Delete</button>
     </li>

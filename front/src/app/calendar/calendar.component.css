@@ -76,29 +76,34 @@
   background-color: #1f72d1;
   color: white;
 }
-#days.other-month{
+#days.other-month {
   background-color: #a8a8a8;
 }
-#days.other-month:hover{
+#days.other-month:hover {
   background-color: #b8b8b8;
 }
-#days.today{
+#days.today {
   background-color: #ea7d2d;
   animation: days_today_animation 5s infinite;
 }
-#days.saturday{
+#days.saturday {
   color: #d3d3d3;
 }
-#days.sunday{
+#days.sunday {
   color: #e30202;
 }
 
-
-@keyframes days_today_animation{
-    0% { transform: scale(1)}
-    50% { transform: scale(0.98)}
-    100% {transform: scale(1) }
- }
+@keyframes days_today_animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 .task-list {
   margin-top: 16px;
@@ -107,7 +112,7 @@
   border-top: 1px solid #ddd;
   border-radius: 0 0 8px 8px;
 }
-#tasks-day{
+#tasks-day {
   position: absolute;
   margin-left: 47px;
   width: 9px;
@@ -158,5 +163,21 @@
   background-color: #005cbf;
 }
 
+.task-colors {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  height: 0px;
+}
 
+.green-task {
+  color: rgb(22, 224, 22);
+}
 
+.orange-task {
+  color: orange;
+}
+
+.red-task {
+  color: red;
+}

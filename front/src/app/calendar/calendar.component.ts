@@ -9,17 +9,25 @@ import { CommonModule } from '@angular/common';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
   standalone: true,
-  imports: [CommonModule, TaskListComponent]
+  imports: [CommonModule, TaskListComponent],
 })
 export class CalendarComponent implements OnInit {
   today: DateTime = DateTime.local();
   firstDayOfMonth: DateTime = this.today.startOf('month');
-  weekDays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  weekDays: string[] = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
   daysOfMonth: DateTime[] = [];
   monthsOfYear: DateTime[] = [];
   selectedDate: DateTime | null = null;
   tasks: any[] = [];
-  currentView: 'month' | 'year' = "month";
+  currentView: 'month' | 'year' = 'month';
 
   constructor(private taskService: TaskService) {
     this.generateDaysOfMonth();
@@ -28,6 +36,15 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.loadTasks();
+  }
+
+  getTasksForDay(day: DateTime): any[] {
+    return this.tasks.filter((task) => task.date.hasSame(day, 'day'));
+  }
+
+  hasCategoryForDay(day: DateTime, category: string): boolean {
+    const tasks = this.getTasksForDay(day);
+    return tasks.some((task) => task.category === category);
   }
 
   setView(view: 'month' | 'year') {
@@ -64,35 +81,42 @@ export class CalendarComponent implements OnInit {
   }
 
   loadTasks() {
-    this.taskService.getTasks().subscribe(tasks => {
-      this.tasks = tasks.map(task => ({
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks.map((task) => ({
         id: task.id,
         title: task.title,
         date: DateTime.fromISO(task.date.toString()),
         priority: task.priority,
+        category: task.category,
       }));
     });
   }
 
-
-  addTask(task: { date: DateTime; task: string; priority: number }) {
+  addTask(task: {
+    date: DateTime;
+    task: string;
+    priority: number;
+    category: 'entertainment' | 'regular' | 'mandatory';
+  }) {
     const newTask = {
       title: task.task,
       date: task.date,
       priority: task.priority,
+      category: task.category,
     };
-    this.taskService.addTask(newTask).subscribe(addedTask => {
+    this.taskService.addTask(newTask).subscribe((addedTask) => {
       this.tasks.push({
         id: addedTask.id,
         title: addedTask.title,
         date: DateTime.fromISO(addedTask.date.toString()),
         priority: addedTask.priority,
+        category: addedTask.category,
       });
     });
   }
 
   hasTasks(day: DateTime): boolean {
-    return this.tasks.some(task => task.date.hasSame(day, 'day'));
+    return this.tasks.some((task) => task.date.hasSame(day, 'day'));
   }
 
   //Calendar buttons

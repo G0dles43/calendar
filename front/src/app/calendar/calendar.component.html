@@ -4,7 +4,7 @@
       <button (click)="previousYear()">Previous Year</button>
       <button (click)="previousMonth()">Previous Month</button>
     </div>
-    <span>{{ firstDayOfMonth.toFormat('MMMM yyyy') }}</span>
+    <span>{{ firstDayOfMonth.toFormat("MMMM yyyy") }}</span>
     <div id="next-btns">
       <button (click)="nextMonth()">Next Month</button>
       <button (click)="nextYear()">Next Year</button>
@@ -18,37 +18,59 @@
 
   <div class="calendar-body">
     <div *ngIf="currentView === 'month'">
-    <div class="days-of-week">
-      <div id="weeks" *ngFor="let day of weekDays">{{ day }}</div>
-    </div>
-    <div class="days-of-month">
-      <div id="days"
-           *ngFor="let day of daysOfMonth"
-           [class.selected]="selectedDate?.hasSame(day, 'day')"
-           [class.today]="day.hasSame(today,'day')"
-           (click)="selectDay(day)"
-            [ngClass]="{
+      <div class="days-of-week">
+        <div id="weeks" *ngFor="let day of weekDays">{{ day }}</div>
+      </div>
+      <div class="days-of-month">
+        <div
+          id="days"
+          *ngFor="let day of daysOfMonth"
+          [class.selected]="selectedDate?.hasSame(day, 'day')"
+          [class.today]="day.hasSame(today, 'day')"
+          (click)="selectDay(day)"
+          [ngClass]="{
             'other-month': !currentMonth(day),
-            'saturday': day.weekday === 6,
-            'sunday': day.weekday === 7}">
-        {{ day.day }}
-        <div id="tasks-day" *ngIf="hasTasks(day)"></div>
+            saturday: day.weekday === 6,
+            sunday: day.weekday === 7
+          }"
+        >
+          {{ day.day }}
+          <div class="task-colors">
+            <div
+              *ngIf="hasCategoryForDay(day, 'entertainment')"
+              class="green-task"
+            >
+              ●
+            </div>
+            <div *ngIf="hasCategoryForDay(day, 'regular')" class="orange-task">
+              ●
+            </div>
+            <div *ngIf="hasCategoryForDay(day, 'mandatory')" class="red-task">
+              ●
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
     <div *ngIf="currentView === 'year'">
       <div class="months-of-year">
-        <div class="month"
-                    *ngFor="let month of monthsOfYear"
-                    (click)="selectMonth(month)">
-          {{month.toFormat('MMMM')}}
-          </div>
+        <div
+          class="month"
+          *ngFor="let month of monthsOfYear"
+          (click)="selectMonth(month)"
+        >
+          {{ month.toFormat("MMMM") }}
+        </div>
       </div>
-      </div>
+    </div>
   </div>
 
   <div class="task-list">
-    <app-task-list [tasks]="tasks" [selectedDate]="selectedDate" (taskAdded)="addTask($event)"></app-task-list>
+    <app-task-list
+      [tasks]="tasks"
+      [selectedDate]="selectedDate"
+      (taskAdded)="addTask($event)"
+    ></app-task-list>
   </div>
 </div>
