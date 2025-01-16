@@ -1,0 +1,26 @@
+* {
+  display: block;
+  justify-content: center;
+  text-align: center;
+  justify-items: center;
+}
+
+#sumbitButton {
+  padding: 10px;
+  background-color: #dc3545;
+  color: #fff;
+}
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  width: 240px;
+}
+
+.sort-options {
+  border-bottom: 1px solid grey;
+  margin-bottom: 10px;
+}
