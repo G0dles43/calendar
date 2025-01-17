@@ -162,4 +162,6 @@ export class CalendarComponent implements OnInit {
   onTaskRemoved(taskId: number) {
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
   }
+
+
 }
