@@ -1,13 +1,15 @@
+/* Główne style kalendarza */
 .calendar {
   background-color: #5e5e5e;
   border: 1px solid #ddd;
   border-radius: 8px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Nagłówek kalendarza */
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -20,7 +22,7 @@
 
 .calendar-header button {
   background-color: #1f72d1;
-  color: #fdfdfd;
+  color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -34,6 +36,7 @@
   background-color: #005cbf;
 }
 
+/* Widok miesięczny */
 .calendar-body {
   padding: 10px;
 }
@@ -47,10 +50,6 @@
   padding: 8px;
 }
 
-#weeks {
-  padding: 4px;
-}
-
 .days-of-month {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -60,12 +59,15 @@
 
 #days {
   text-align: center;
-  padding: 30px;
+  padding: 20px 0;
   background-color: #8e8e8e;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
+  position: relative;
+  height: 60px;
+  line-height: 20px;
 }
 
 #days:hover {
@@ -76,35 +78,35 @@
   background-color: #1f72d1;
   color: white;
 }
+
 #days.other-month {
   background-color: #a8a8a8;
 }
-#days.other-month:hover {
-  background-color: #b8b8b8;
-}
+
 #days.today {
   background-color: #ea7d2d;
   animation: days_today_animation 5s infinite;
 }
+
 #days.saturday {
   color: #d3d3d3;
 }
+
 #days.sunday {
   color: #e30202;
 }
 
+/* Animacja dzisiejszego dnia */
 @keyframes days_today_animation {
-  0% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
     transform: scale(0.98);
   }
-  100% {
-    transform: scale(1);
-  }
 }
 
+/* Lista zadań */
 .task-list {
   margin-top: 16px;
   padding: 16px;
@@ -112,66 +114,15 @@
   border-top: 1px solid #ddd;
   border-radius: 0 0 8px 8px;
 }
-#tasks-day {
-  position: absolute;
-  margin-left: 47px;
-  width: 9px;
-  height: 9px;
-  background-color: #56e310;
-  border-radius: 50%;
-  margin-top: 15px;
-}
-.months-of-year {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  text-align: center;
-  padding: 10px;
-}
-
-.month {
-  background-color: #8e8e8e;
-  border-radius: 4px;
-  padding: 20px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s;
-}
-
-.month:hover {
-  background-color: #b8b8b8;
-}
-
-.view-toggle {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.view-toggle button {
-  background-color: #1f72d1;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin: 0 5px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.view-toggle button:hover {
-  background-color: #005cbf;
-}
 
 .task-colors {
   display: flex;
   justify-content: center;
   gap: 10px;
-  height: 0px;
 }
 
 .green-task {
-  color: rgb(22, 224, 22);
+  color: #16e016;
 }
 
 .orange-task {
@@ -182,6 +133,7 @@
   color: red;
 }
 
+/* Widok roczny */
 .year-view {
   display: flex;
   flex-wrap: wrap;
@@ -192,7 +144,7 @@
 
 .month-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolumny w rzędzie */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   width: 100%;
 }
@@ -206,6 +158,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 200px;
   max-width: 240px;
+  transition: background-color 0.3s;
+}
+
+.month:hover {
+  background-color: #b8b8b8;
 }
 
 .month-header {
@@ -214,6 +171,7 @@
   margin-bottom: 10px;
 }
 
+/* Mini kalendarze */
 .mini-calendar .days-of-week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -258,8 +216,34 @@
   background-color: #16e016;
 }
 
+/* Przełącznik widoku */
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
 
+.view-toggle button {
+  background-color: #1f72d1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.view-toggle button:hover {
+  background-color: #005cbf;
+}
 
+#days.selected {
+  background-color: #1f72d1;
+  color: white;
+}
 
-
+#days.selected.other-month {
+  background-color: #1f72d1;
+  color: white;
+}
