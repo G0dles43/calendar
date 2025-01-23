@@ -162,6 +162,22 @@ export class CalendarComponent implements OnInit {
   onTaskRemoved(taskId: number) {
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
   }
+  getHighestPriorityCategoryForDay(day: DateTime): string | null {
+    const tasksForDay = this.getTasksForDay(day);
+
+    if (tasksForDay.some((task) => task.category === 'mandatory')) {
+      return 'mandatory';
+    }
+    if (tasksForDay.some((task) => task.category === 'regular')) {
+      return 'regular';
+    }
+    if (tasksForDay.some((task) => task.category === 'entertainment')) {
+      return 'entertainment';
+    }
+
+    return null;
+  }
+
 
 
 }

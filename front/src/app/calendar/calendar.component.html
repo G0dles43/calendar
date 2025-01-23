@@ -69,6 +69,10 @@
                 class="day"
                 [class.other-month]="!day.hasSame(month, 'month')"
                 [class.today]="day.hasSame(today, 'day')"
+                [ngClass]="{
+                'red-task': getHighestPriorityCategoryForDay(day) === 'mandatory',
+                'orange-task': getHighestPriorityCategoryForDay(day) === 'regular',
+                'green-task': getHighestPriorityCategoryForDay(day) === 'entertainment'}"
                 (click)="selectMonth(month)">
                 {{ day.day }}
               </div>

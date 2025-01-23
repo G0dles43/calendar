@@ -233,6 +233,7 @@
   padding: 5px;
   background-color: #eaeaea;
   border-radius: 4px;
+  color: black;
 }
 
 .mini-calendar .day.today {
@@ -244,6 +245,21 @@
 .mini-calendar .day.other-month {
   color: #ccc;
 }
+
+.mini-calendar .red-task {
+  background-color: #ff0000;
+}
+
+.mini-calendar .orange-task {
+  background-color: #ffa500;
+}
+
+.mini-calendar .green-task {
+  background-color: #16e016;
+}
+
+
+
 
 
 
